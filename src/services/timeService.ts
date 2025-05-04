@@ -1,10 +1,16 @@
 export function getCurrentTimeInKorea(): string {
-  const koreaTime = new Date(
-    new Date().toLocaleString("en-US", { timeZone: "Asia/Seoul" })
-  );
+  const formatter = new Intl.DateTimeFormat("pt-BR", {
+    timeZone: "Asia/Seoul",
+    weekday: "long",
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  });
 
-  const horas = koreaTime.getHours().toString().padStart(2, "0");
-  const minutos = koreaTime.getMinutes().toString().padStart(2, "0");
+  const formatted = formatter.format(new Date());
 
-  return `🕒 Agora na Coreia do Sul: ${horas}:${minutos}`;
+  return `🕒 Agora na Coreia do Sul: ${formatted}`;
 }
