@@ -17,7 +17,6 @@ export async function convertCurrency(from: string, to: string, amount: number):
       throw new Error("Resposta inválida da API de câmbio");
     }
 
-    // 🪄 Símbolos por moeda
     const symbols: Record<string, string> = {
       KRW: "₩",
       BRL: "R$",
