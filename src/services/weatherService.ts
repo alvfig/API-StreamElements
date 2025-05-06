@@ -1,5 +1,6 @@
 import axios from "axios";
 import dotenv from "dotenv";
+import { Agent } from "https";
 dotenv.config();
 
 interface WeatherResponse {
@@ -17,8 +18,13 @@ export async function getWeatherInSeoul(): Promise<string> {
 
   const url = `https://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=${apiKey}&units=metric&lang=pt`;
 
+  const agent = new Agent({ family: 4 });
+
   try {
-    const { data } = await axios.get<WeatherResponse>(url);
+    const { data } = await axios.get<WeatherResponse>(url, {
+      httpsAgent: agent,
+      timeout: 5000
+    });
 
     const temp = Math.round(data.main.temp);
     const weather = data.weather[0].description;
