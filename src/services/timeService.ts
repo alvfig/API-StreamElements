@@ -2,8 +2,8 @@ export function getCurrentTimeInKorea(): string {
   const formatter = new Intl.DateTimeFormat("pt-BR", {
     timeZone: "Asia/Seoul",
     weekday: "long",
-    hour: "numeric",
-    minute: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
     hour12: true,
     day: "2-digit",
     month: "2-digit",
