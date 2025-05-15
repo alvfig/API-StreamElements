@@ -30,7 +30,7 @@ export async function getWeatherInSeoul(): Promise<string> {
     const weather = data.weather[0].description;
     const city = data.name;
 
-    return `🌤️ Agora em ${city}: ${temp}°C com ${weather}.`;
+    return `🌤️ Agora em ${city}: ${temp}°C, tempo ${weather}.`;
   } catch (err) {
     console.error("Erro na API de clima:", err);
     return "❌ Erro ao consultar o clima.";
