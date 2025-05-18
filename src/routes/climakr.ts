@@ -4,7 +4,10 @@ import { getWeather } from "../services/weatherService";
 const router = Router();
 
 router.get("/", async (req, res) => {
-  const city = req.query.city?.toString() || "Seoul";
+  let city = req.query.city?.toString().trim();
+  if (!city || city === "$(querystring)") {
+    city = "Seoul";
+  }
 
   try {
     const result = await getWeather(city);
