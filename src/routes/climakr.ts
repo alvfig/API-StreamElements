@@ -5,7 +5,9 @@ const router = Router();
 
 router.get("/", async (req, res) => {
   let city = req.query.city?.toString().trim();
-  if (!city || city === "$(querystring)") {
+  console.log("📥 Cidade recebida:", city);
+
+  if (!city || city.toLowerCase() === "$(querystring)") {
     city = "Seoul";
   }
 
