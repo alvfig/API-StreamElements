@@ -8,7 +8,7 @@ router.get("/", async (req, res) => {
 
   let rawCity = (req.query.city || "").toString().trim();
 
-  if (!rawCity || rawCity === "$(querystring)") {
+  if (!rawCity || rawCity === "$(1)") {
     rawCity = "Seoul";
   }
 
