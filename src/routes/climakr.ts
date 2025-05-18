@@ -6,19 +6,17 @@ const router = Router();
 router.get("/", async (req, res) => {
   let city = (req.query.city || "").toString().trim();
 
-  const isInvalid =
-    !city || city.toLowerCase() === "$(querystring)" || /[^\w\s\-]/.test(city);
-
-  if (isInvalid) {
+  if (!city) {
     city = "Seoul";
   }
 
   const normalized = city.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
   const aliases: Record<string, string> = {
     seul: "Seoul",
-    "myeong dong": "Myeongdong",
-    gangnam: "Seoul",
     suwon: "Suwon",
+    gangnam: "Seoul",
+    "myeong dong": "Myeongdong",
+    myeongdong: "Myeongdong",
     incheon: "Incheon",
   };
 
