@@ -8,7 +8,7 @@ router.get("/", async (req, res) => {
 
   let rawCity = (req.query.city || "").toString().trim();
 
-  if (!rawCity || rawCity === "$(1)") {
+  if (!rawCity || rawCity.startsWith("$(")) {
     rawCity = "Seoul";
   }
 
@@ -20,6 +20,7 @@ router.get("/", async (req, res) => {
     gangnam: "Seoul",
     "myeong dong": "Myeongdong",
     myeongdong: "Myeongdong",
+    myongdong: "Myeongdong",
     incheon: "Incheon",
   };
 

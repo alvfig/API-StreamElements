@@ -33,8 +33,11 @@ export async function getWeather(cityName: string = "Seoul"): Promise<string> {
 
     return `🌤️ Agora em ${city}: ${temp}°C, tempo: ${weather}.`;
   } catch (err) {
-    console.error("Erro na API de clima:", err);
+    if (axios.isAxiosError(err) && err.response?.status === 404) {
+      return `❌ Cidade "${cityName}" não encontrada. Verifique o nome.`;
+    }
+
+    console.error("Erro inesperado na API de clima:", err);
     return `❌ Erro ao consultar o clima para "${cityName}".`;
   }
 }
-
