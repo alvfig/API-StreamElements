@@ -1,11 +1,13 @@
 import { Router } from "express";
-import { getWeatherInSeoul } from "../services/weatherService";
+import { getWeather } from "../services/weatherService";
 
 const router = Router();
 
-router.get("/", async (_req, res) => {
+router.get("/", async (req, res) => {
+  const city = req.query.city?.toString() || "Seoul";
+
   try {
-    const result = await getWeatherInSeoul();
+    const result = await getWeather(city);
     res.send(result);
   } catch (err) {
     console.error("Erro:", err);

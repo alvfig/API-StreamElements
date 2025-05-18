@@ -13,17 +13,18 @@ interface WeatherResponse {
   name: string;
 }
 
-export async function getWeatherInSeoul(): Promise<string> {
+export async function getWeather(cityName: string = "Seoul"): Promise<string> {
   const apiKey = process.env.WEATHER_API_KEY;
-
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=${apiKey}&units=metric&lang=pt`;
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(
+    cityName
+  )}&appid=${apiKey}&units=metric&lang=pt`;
 
   const agent = new Agent({ family: 4 });
 
   try {
     const { data } = await axios.get<WeatherResponse>(url, {
       httpsAgent: agent,
-      timeout: 5000
+      timeout: 5000,
     });
 
     const temp = Math.round(data.main.temp);
@@ -33,6 +34,7 @@ export async function getWeatherInSeoul(): Promise<string> {
     return `🌤️ Agora em ${city}: ${temp}°C, tempo: ${weather}.`;
   } catch (err) {
     console.error("Erro na API de clima:", err);
-    return "❌ Erro ao consultar o clima.";
+    return `❌ Erro ao consultar o clima para "${cityName}".`;
   }
 }
+
