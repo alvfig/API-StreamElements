@@ -4,13 +4,14 @@ import { getWeather } from "../services/weatherService";
 const router = Router();
 
 router.get("/", async (req, res) => {
-  let city = (req.query.city || "").toString().trim();
+  let rawCity = (req.query.city || "").toString().trim();
 
-  if (!city) {
-    city = "Seoul";
+  if (!rawCity || rawCity === "$(querystring)") {
+    rawCity = "Seoul";
   }
 
-  const normalized = city.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  const normalized = rawCity.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
   const aliases: Record<string, string> = {
     seul: "Seoul",
     suwon: "Suwon",
@@ -20,7 +21,7 @@ router.get("/", async (req, res) => {
     incheon: "Incheon",
   };
 
-  city = aliases[normalized] || city;
+  const city = aliases[normalized] || rawCity;
 
   console.log("📥 Cidade final para busca:", city);
 
@@ -28,8 +29,8 @@ router.get("/", async (req, res) => {
     const result = await getWeather(city);
     res.send(result);
   } catch (err) {
-    console.error("Erro:", err);
-    res.status(500).send("❌ Erro ao consultar o clima.");
+    console.error("Erro na API de clima:", err);
+    res.status(500).send(`❌ Erro ao consultar o clima para "${city}".`);
   }
 });
 
