@@ -4,6 +4,8 @@ import { getWeather } from "../services/weatherService";
 const router = Router();
 
 router.get("/", async (req, res) => {
+  console.log("🔍 Query bruta recebida:", req.query);
+
   let rawCity = (req.query.city || "").toString().trim();
 
   if (!rawCity || rawCity === "$(querystring)") {
