@@ -10,6 +10,15 @@ router.get("/", async (req, res) => {
     rawCity = "Seoul";
   }
 
+  rawCity = rawCity.replace(/\+/g, " ");
+
+  try {
+    rawCity = decodeURIComponent(rawCity);
+  } catch (err) {
+    console.error("Erro ao codificar cidade:", err);
+    res.status(500).send(`❌ Erro ao ao codificar cidade.`);
+  }
+
   const normalized = rawCity.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
   const aliases: Record<string, string> = {
