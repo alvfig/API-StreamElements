@@ -4,21 +4,19 @@ export function getCurrentTimeInKorea(): string {
     now.toLocaleString("en-US", { timeZone: "Asia/Seoul" })
   );
 
-  const days = ["domingo", "segunda-feira", "terça-feira", "quarta-feira", "quinta-feira", "sexta-feira", "sábado"];
+  const days = ["Domingo", "Segunda-Feira", "Terça-Feira", "Quarta-Feira", "Quinta-Feira", "Sexta-Feira", "Sábado"];
   const dayOfWeek = days[koreaTime.getDay()];
 
   const day = koreaTime.getDate().toString().padStart(2, "0");
   const month = (koreaTime.getMonth() + 1).toString().padStart(2, "0");
   const year = koreaTime.getFullYear();
 
-  let hours = koreaTime.getHours();
+  const hourNum = koreaTime.getHours();
+  const hours = hourNum.toString().padStart(2, "0");
   const minutes = koreaTime.getMinutes().toString().padStart(2, "0");
-  const isPM = hours >= 12;
 
-  hours = hours % 12;
-  if (hours === 0) hours = 12;
+  const isDayTime = hourNum >= 6 && hourNum <= 18;
+  const emoji = isDayTime ? "☀️" : "🌙";
 
-  const suffix = isPM ? "PM" : "AM";
-
-  return `🕒 Agora na Coreia do Sul: ${dayOfWeek}, ${day}/${month}/${year}, ${hours}:${minutes} ${suffix}`;
+  return `🕒 Agora na Coreia do Sul: ${dayOfWeek}, ${day}/${month}/${year}, ${hours}h${minutes} ${emoji}`;
 }
