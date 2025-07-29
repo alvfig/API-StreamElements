@@ -29,6 +29,7 @@ router.get("/", async (req, res) => {
     myeongdong: "Myeongdong",
     myongdong: "Myeongdong",
     incheon: "Incheon",
+    "porao do kou": "Xangai",
     "porao do kouhai": "Xangai",
     "porao do kouhaizera": "Xangai",
   };
